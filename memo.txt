@@ -1,0 +1,20 @@
+how to build app
+https://ja.reactjs.org/docs/thinking-in-react.html
+
+basecolor
+https://colorhunt.co/palette/17117
+
+draggable
+https://reactjsexample.com/a-simple-draggable-list-component-for-react/
+
+王冠絵文字
+https://lets-emoji.com/crown-emoji/
+
+https://github.com/gothinkster/react-redux-realworld-example-app
+
+hooks
+https://www.valentinog.com/blog/hooks/
+https://www.robinwieruch.de/react-hooks-fetch-data
+
+style guide
+https://www.digitalocean.com/community/tutorials/how-to-style-react-components
