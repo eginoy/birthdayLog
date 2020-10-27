@@ -1,19 +1,18 @@
 import React from 'react'
 import { getUserData } from '../utils'
 
-const Regist = () => {
+const PresentRegist = () => {
+    const userData = getUserData();
+    let nowSelectingUid = {};
+    
     const selectItems = (value) => {
         return (
             <option value={value.Id} key={value.Id}>{value.Name}</option>
         )
     }
 
-    const userData = getUserData();
-
-    let nowSelecting = {};
-
     function onChange(e) {
-        nowSelecting = e.target.value;
+        nowSelectingUid = e.target.value;
     }
 
     return (
@@ -40,4 +39,4 @@ const Regist = () => {
     )
 }
 
-export default Regist
+export default PresentRegist

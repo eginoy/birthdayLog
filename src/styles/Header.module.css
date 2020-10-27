@@ -1,0 +1,35 @@
+.headerContainer{
+    background-color: #252a34;
+    color:#fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftContainer{
+    display: flex;
+}
+.leftContainer > div{
+    padding:0.5em;
+}
+.leftContainer_siteName{
+    color: #08d9d6;
+}
+.leftContainer_loginUserName{
+
+}
+
+.rightContainer{
+    display: flex;
+}
+.rightContainer > div{
+    padding: 0.5em;
+}
+.rightContainer_menuContainer{
+
+}
+.rightContainer_logout{
+
+}
+.rightContainer_logout:hover{
+    color: #08d9d6;
+}

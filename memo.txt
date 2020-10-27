@@ -1,4 +1,4 @@
-how to build app
+そあｔ￥how to build app
 https://ja.reactjs.org/docs/thinking-in-react.html
 
 basecolor
@@ -18,3 +18,8 @@ https://www.robinwieruch.de/react-hooks-fetch-data
 
 style guide
 https://www.digitalocean.com/community/tutorials/how-to-style-react-components
+このページのmodule
+https://coders-shelf.com/react-css/
+
+form
+https://coders-shelf.com/react-hook-form/
