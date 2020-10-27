@@ -3,7 +3,7 @@ import ListView from './ListView.js';
 
 function App() {
   return (
-   <ListView /> 
+    <ListView />
   );
 }
 
