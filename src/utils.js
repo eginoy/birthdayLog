@@ -6,12 +6,18 @@ const userDataMock = [
     {"Id":3,"Uid":"ghi","Name":"アル中","Birthday":"1997/02/09"}
 ]
 
-function getUserName(uid) {
+export function getUserData(){
+    return userDataMock.map(u => {
+        return {
+            'Id': u.Id,
+            'Name': u.Name,
+            'Birthday': u.Birthday
+        }
+    })
+}
+
+export function getUserName(uid) {
     const userInfo = _.find(userDataMock, u => {return u.Id === uid});
     const userName = userInfo.Name;
     return userName;
-}
-
-export {
-    getUserName
 }
