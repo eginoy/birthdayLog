@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-
+import Card from './Card';
 
 const ListView = (props) => {
     let mockData = [
@@ -26,8 +26,11 @@ const ListView = (props) => {
     //データの整形
     let birthDayEvents = groupByBirthDay(mockData);
     //CardコンポーネントにBirthDayごとにグルーピングしてから渡す。
+    
     return(
-        <div></div>
+        birthDayEvents.map(e => {
+            return <Card value={e} key={e.InsertUid} />
+        })
     )
 }
 
