@@ -1,4 +1,3 @@
-import react from 'react'
 import header from '../styles/Header.module.css'
 
 const Header = (props) => {

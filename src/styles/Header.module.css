@@ -5,14 +5,20 @@
     justify-content: space-between;
 }
 
+.leftContainer > div,
+.rightContainer > div{
+    padding:0.5em;
+    margin: 0 0.5em;
+}
+
 .leftContainer{
     display: flex;
-}
-.leftContainer > div{
-    padding:0.8em;
+    align-items: center;
 }
 .leftContainer_siteName{
     color: #08d9d6;
+    font-size: 1.3em;
+    padding-top: 0.2em !important;
 }
 .leftContainer_loginUserName{
 
@@ -20,9 +26,7 @@
 
 .rightContainer{
     display: flex;
-}
-.rightContainer > div{
-    padding: 0.8em;
+    align-items: center;
 }
 .rightContainer_menuContainer{
 
