@@ -1,0 +1,22 @@
+.cardContainer{
+    margin:1em auto;
+    background-color:#252a34;
+    border-radius: 0.5em;
+    box-shadow: 6px 6px 5px;
+    padding:0.5em;
+    width: 80%;
+}
+.rankingTitleContainer{
+    color:#fff;
+    
+}
+.rankingTitleContainer > span{
+    display: inline-block;
+    margin-left: 0.5em;
+}
+.birthDayLabel{
+
+}
+.detailContainer{
+    
+}

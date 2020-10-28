@@ -1,4 +1,4 @@
-import './App.css';
+import '../styles/App.module.css';
 import Header from './Header';
 import ListView from './ListView.js';
 import PresentRegist from './PresentRegist';

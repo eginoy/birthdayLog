@@ -1,6 +1,7 @@
-import React from 'react';
-import _ from 'lodash';
-import Card from './Card';
+import React from 'react'
+import listView from '../styles/ListView.module.css'
+import _ from 'lodash'
+import Card from './Card'
 
 const ListView = (props) => {
     let presentMock = [
@@ -27,9 +28,11 @@ const ListView = (props) => {
     let birthDayEvents = groupByBirthDay(presentMock);
 
     return (
-        birthDayEvents.map(e => {
-            return <Card value={e} key={e.InsertUid} />
-        })
+        <div className={listView.cardContainer}>
+            {birthDayEvents.map(e => {
+                return <Card value={e} key={e.InsertUid} />
+            })}
+        </div>
     )
 }
 

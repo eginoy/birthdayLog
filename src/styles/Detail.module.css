@@ -1,0 +1,21 @@
+.detailContainer{
+    display: flex;
+    max-width: 95%;
+    margin:1em auto;
+    border:1px solid #eaeaea;
+    border-radius:0.5em;
+    background-color:#fff;
+    color: #333;
+}
+.rank{
+    margin:auto 1em;
+}
+.contentContainer{
+}
+.row{
+    padding:0.1em 0;
+}
+.item{
+    display: inline-block;
+    margin-left: 1em;
+}

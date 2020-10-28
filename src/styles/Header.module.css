@@ -9,7 +9,7 @@
     display: flex;
 }
 .leftContainer > div{
-    padding:0.5em;
+    padding:0.8em;
 }
 .leftContainer_siteName{
     color: #08d9d6;
@@ -22,7 +22,7 @@
     display: flex;
 }
 .rightContainer > div{
-    padding: 0.5em;
+    padding: 0.8em;
 }
 .rightContainer_menuContainer{
 
