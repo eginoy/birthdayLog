@@ -9,6 +9,7 @@
 .rankingTitleContainer{
     color:#fff;
     margin-bottom: 0.5em;
+    margin-left:1em;
 }
 .rankingTitleContainer > span{
     display: inline-block;
