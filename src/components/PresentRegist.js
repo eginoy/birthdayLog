@@ -1,10 +1,11 @@
-import {useForm} from 'react-hook-form'
+import { TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
+import { useForm, Controller,required } from 'react-hook-form'
 import { getUserData } from '../utils'
 
 const PresentRegist = () => {
     const userData = getUserData();
     let nowSelectingUid = {};
-    const {register,handleSubmit,errors,required} = useForm();
+    const { register, handleSubmit, errors, required, control } = useForm();
     const onSubmit = data => {
         // stateの値をapiへ渡す
         console.log(data)
@@ -12,12 +13,8 @@ const PresentRegist = () => {
 
     const selectItems = (value) => {
         return (
-            <option value={value.Id} key={value.Id}>{value.Name}</option>
+            <MenuItem value={value.Id} key={value.Id}>{value.Name}</MenuItem>
         )
-    }
-
-    function onChange(e) {
-        nowSelectingUid = e.target.value;
     }
 
     return (
@@ -25,39 +22,46 @@ const PresentRegist = () => {
             <div>
                 <div className='title'>プレゼント登録</div>
                 <div className='row'>
-                    <span>{errors.toUserId && '宛先は必須選択項目です'}</span>
-                    <span className='row_label'>誰へのプレゼント?:</span>
-                    <select
-                    className='row_inputField'
-                    onChange={onChange}
-                    name='toUserId'
-                    ref={register({required:true})}
-                    >
-                        <option value={''}>選択してください</option>
-                        {userData.map(d => {
-                            return selectItems(d)
-                        })}
-                    </select>
+                    <InputLabel id='selectNameLabel'>誰へのプレゼント?</InputLabel>
+                    <Controller
+                        control ={control}
+                        className='row_inputField'
+                        labelId='selectNameLabel'
+                        name='toUserId'
+                        defaultValue={'1'}
+                        ref={register()}
+                        as={
+                            <Select>
+                                {userData.map(d => {
+                                    return selectItems(d)
+                                })}
+                            </Select>} />
                 </div>
                 <div className='row'>
-                    <span className='error'>{errors.presentName && '商品名は必須入力項目です'}</span>
-                    <span className='row_label'>商品名:</span>
-                    <input
-                     className='row_inputField'
-                     type='text' 
-                     name='presentName'
-                     ref={register({required:true})} 
-                     />
+                    <TextField
+                        label='商品名'
+                        fullWidth
+                        margin='normal'
+                        className='row_inputField'
+                        type='text'
+                        name='presentName'
+                        inputRef={register({ required: true })}
+                        error={Boolean(errors.presentName)}
+                        helperText={errors.presentName && '商品名は必須入力項目です'}
+                    />
                 </div>
                 <div className='row'>
-                    <span className='error'>{errors.presentURL && '参考URLは必須入力項目です'}</span>
-                    <span className='row_label'>参考URL:</span>
-                    <input
-                     className='row_inputField'
-                     type='text' 
-                     name='presentURL'
-                     ref={register({required:true})} 
-                     />
+                    <TextField
+                        label='参考URL'
+                        fullWidth
+                        margin='normal'
+                        className='row_inputField'
+                        type='text'
+                        name='presentURL'
+                        inputRef={register({ required: true })}
+                        error={Boolean(errors.presentURL)}
+                        helperText={errors.presentURL && '参考URLは必須入力項目です'}
+                    />
                 </div>
                 <input type='submit' value='登録' />
             </div>
