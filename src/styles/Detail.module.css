@@ -1,7 +1,7 @@
 .detailContainer{
     display: flex;
     max-width: 95%;
-    margin:1em auto;
+    margin:0 auto 1em auto;
     border:1px solid #eaeaea;
     border-radius:0.5em;
     background-color:#fff;

@@ -1,0 +1,31 @@
+.registerContainer{
+    background-color:#252a34;
+    border-radius: 0.5em;
+    box-shadow: 6px 6px 5px;
+    padding:0.5em;
+    width: 80%;
+    margin:1em auto 0 auto;
+}
+
+.title{
+    color:#fff;
+    margin-left:0.5em;
+}
+
+.row{
+    border:1px solid #eaeaea;
+    border-radius:0.5em;
+    background-color:#fff;
+    color: #333;
+    width: 95%;
+    margin:0.5em auto;
+    padding:0.5em;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content:flex-end;
+}
+.buttonContainer > button{
+    margin-right: 1.3em;
+}
