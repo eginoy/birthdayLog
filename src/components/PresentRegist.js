@@ -1,11 +1,10 @@
 import { TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
-import { useForm, Controller,required } from 'react-hook-form'
+import { useForm, Controller} from 'react-hook-form'
 import { getUserData } from '../utils'
 
 const PresentRegist = () => {
     const userData = getUserData();
-    let nowSelectingUid = {};
-    const { register, handleSubmit, errors, required, control } = useForm();
+    const { register, handleSubmit, errors, control } = useForm();
     const onSubmit = data => {
         // stateの値をapiへ渡す
         console.log(data)
