@@ -1,6 +1,8 @@
 import { useEffect} from 'react'
 import { useUserStore } from '../store/index'
 import firebase from '../firebase'
+import CustomColorButton from './CustomColorButton'
+import login from '../styles/Login.module.css'
 
 
 const Login = (props) => {
@@ -16,9 +18,8 @@ const Login = (props) => {
         firebase.auth().signInWithRedirect(provider)
     }
     return (
-        <div>
-            <button onClick={handleClick}>Googleアカウントでログイン</button>
-            <span>{user}</span>
+        <div className={login.loginButtonContainer}>
+            <CustomColorButton text='Googleアカウントでログイン' onClick={handleClick} size='small' variant='contained' color='primary' />
         </div>
     )
 }

@@ -14,7 +14,7 @@ const CustomColorButton  = (props) => {
     }))(Button);
 
     return(
-        <CustomColorButton type={props.type}>{props.text}</CustomColorButton>
+        <CustomColorButton type={props.type} onClick={props.onClick}>{props.text}</CustomColorButton>
     )
 
 }

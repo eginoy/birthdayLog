@@ -1,17 +1,20 @@
+import {useState} from 'react'
 import header from '../styles/Header.module.css'
 import firebase from '../firebase'
-import {useUserStore} from '../store/index'
+import { useUserStore } from '../store/index'
 const Header = (props) => {
-    const [user,setUser] = useUserStore()
+    const [user, setUser] = useUserStore()
+    const [userName, setuserName] = useState('ゲスト');
     const handleClick = () => {
         firebase.auth().signOut()
-        .then(() => setUser(null))
+            .then(() => setUser(null))
     }
-    return(
+
+    return (
         <div className={header.headerContainer}>
             <div className={header.leftContainer}>
                 <div className={header.leftContainer_siteName}>٩(ŏ﹏ŏ｡ )۶</div>
-                <div className={header.leftContainer_loginUserName}>こんにちは、としきさん</div>
+                <div className={header.leftContainer_loginUserName}>こんにちは、{userName}さん</div>
             </div>
             <div className={header.rightContainer}>
                 <div className={header.rightContainer_menuContainer}>
