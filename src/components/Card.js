@@ -11,7 +11,7 @@ const Card = (props) => {
     return (
         <div className={card.cardContainer}>
             <div className={card.rankingTitleContainer}>
-                <span className={card.birthDayUserName}>{birthDayUserName}へのプレゼントランキング</span>
+                <span className={card.birthDayUserName}>{birthDayUserName}のプレゼントランキング</span>
                 <span className={card.birthDayLabel}>{birthDay}</span>
             </div>
             <div className={card.detailContainer}>

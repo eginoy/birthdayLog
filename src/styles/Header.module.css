@@ -28,9 +28,15 @@
     display: flex;
     align-items: center;
 }
-.rightContainer_menuContainer{
-
+.rightContainer_menuContainer > a{
+    text-decoration: none;
+    color:#fff;
 }
+.rightContainer_menuContainer > a:hover{
+    color: #08d9d6;
+    cursor: pointer;
+}
+
 .rightContainer_logout{
     margin-right:1em;
 }

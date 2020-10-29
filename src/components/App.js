@@ -15,7 +15,8 @@ function App() {
       <UserProvider>
         <BrowserRouter>
           <Header />
-          <Route exact path='/' component={Login}></Route>
+          <Route exact path='/' component={ListView}></Route>
+          <Route path='/login' component={Login}></Route>
           <Route path='/userRegist' component={UserRegister}></Route>
           <Route path='/presentRegist' component={PresentRegister}></Route>
           <Route path='/eventList' component={ListView}></Route>
