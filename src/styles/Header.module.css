@@ -36,4 +36,5 @@
 }
 .rightContainer_logout:hover{
     color: #08d9d6;
+    cursor:pointer;
 }

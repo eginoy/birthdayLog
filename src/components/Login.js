@@ -7,7 +7,7 @@ const Login = (props) => {
     const [user, setUser] = useUserStore()
     useEffect(() => {
         return firebase.auth().onAuthStateChanged(user => {
-            setUser(user.uid)
+            if(!!user)setUser(user.uid)
             console.log(user)
         })
     }, [])

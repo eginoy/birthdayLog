@@ -9,8 +9,7 @@ import CustomColorButton from './CustomColorButton'
 import { useForm} from 'react-hook-form'
 
 const UserRegister = () => {
-    moment.locale('ja')
-    const [locale, setlocale] = useState('ja');
+    const locale = 'ja'
     const [birthday, setbirthday] = useState('1997/01/01');
     const { register, handleSubmit, errors} = useForm();
     const onSubmit = data => {
