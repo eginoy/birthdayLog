@@ -24,12 +24,26 @@ const ListView = (props) => {
         console.log(result);
         return result;
     }
-    //データの整形
-    let birthDayEvents = groupByBirthDay(presentMock);
 
+    let descSort = (data) => {
+        return data.sort((a,b) => {
+            var tmpA,tmpB
+            tmpA = new Date(Object.getOwnPropertyNames(a)[0])
+            tmpB = new Date(Object.getOwnPropertyNames(b)[0])
+            
+            if(tmpA > tmpB) return -1;
+            if(tmpA < tmpB) return 1;
+            return 0;
+        })
+    }
+
+    //データの整形
+    let birthDayEvents = groupByBirthDay(presentMock)
+    let sortedData = descSort(birthDayEvents)
+    
     return (
         <div className={listView.cardContainer}>
-            {birthDayEvents.map(e => {
+            {sortedData.map(e => {
                 return <Card value={e} key={e.InsertUid} />
             })}
         </div>
