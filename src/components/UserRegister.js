@@ -1,19 +1,63 @@
-import React from 'react'
+import React,{useState} from 'react'
+import userRegister from '../styles/UserRegister.module.css'
+import { TextField } from '@material-ui/core'
+import {DatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers'
+import moment from 'moment'
+import 'moment/locale/ja'
+import MomentUtils from '@date-io/moment'
+import CustomColorButton from './CustomColorButton'
+import { useForm} from 'react-hook-form'
 
-const UserRegist = (props) => {
-   
-    return(
-        <div>
-            <div className='row'>
-                <span className='row_label'>ニックネーム:</span>
-                <input className='row_inputField' type='text'></input>
+const UserRegister = () => {
+    moment.locale('ja')
+    const [locale, setlocale] = useState('ja');
+    const [birthday, setbirthday] = useState('1997/01/01');
+    const { register, handleSubmit, errors} = useForm();
+    const onSubmit = data => {
+        console.log(data)
+    }
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={userRegister.registerContainer}>
+                <div className={userRegister.title}>ユーザー情報登録</div>
+                <div className={userRegister.formContainer}>
+                    <div className={userRegister.row}>
+                        <TextField
+                            label='ユーザーネーム'
+                            fullWidth
+                            className='row_inputField'
+                            type='text'
+                            name='Name'
+                            inputRef={register({ required: true })}
+                            error={Boolean(errors.Name)}
+                            helperText={errors.Name && 'ユーザーネームは必須入力項目です'}
+                        />
+                    </div>
+                    <div className={userRegister.row}>
+                        <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>
+                            <DatePicker
+                                label='誕生日'
+                                value={birthday}
+                                format='YYYY-MM-DD'
+                                onChange={(d)=>{setbirthday(d)}}
+                                fullWidth
+                                className='row_inputField'
+                                type='text'
+                                name='Birthday'
+                                inputRef={register({ required: true })}
+                                error={Boolean(errors.Birthday)}
+                                helperText={errors.Birthday && '誕生日は必須入力項目です'}
+                                renderInput={(props) => <TextField {...props} />}
+                            />
+                        </MuiPickersUtilsProvider>
+                    </div>
+                </div>
+                <div className={userRegister.buttonContainer}>
+                    <CustomColorButton text='登録' size='small' type='submit' variant='contained' color='primary' />
+                </div>
             </div>
-            <div className='row'>
-                <span className='row_label'>誕生日:</span>
-                <input className='row_inputField' type='text'></input>
-            </div>
-        </div>
+        </form>
     )
 }
 
-export default UserRegist
+export default UserRegister

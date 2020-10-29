@@ -1,9 +1,10 @@
-import presentRegister from '../styles/presentRegister.module.css'
-import { withStyles, TextField, Select, MenuItem, InputLabel, Button } from '@material-ui/core'
+import presentRegister from '../styles/PresentRegister.module.css'
+import {TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
+import CustomColorButton from './CustomColorButton'
 import { useForm, Controller } from 'react-hook-form'
 import { getUserData } from '../utils'
 
-const PresentRegist = () => {
+const PresentRegister = () => {
     const userData = getUserData();
     const { register, handleSubmit, errors, control } = useForm();
     const onSubmit = data => {
@@ -15,17 +16,6 @@ const PresentRegist = () => {
             <MenuItem value={value.Id} key={value.Id}>{value.Name}</MenuItem>
         )
     }
-
-    const CustomColorButton = withStyles(() => ({
-        root: {
-            color: '#fff',
-            background: 'hsl(179, 93%, 44%)',
-            '&:hover': {
-                background: 'hsl(179, 93%, 41%)'
-            }
-        }
-    }))(Button);
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,11 +64,11 @@ const PresentRegist = () => {
                     </div>
                 </div>
                 <div className={presentRegister.buttonContainer}>
-                    <CustomColorButton size='small' type='submit' variant='contained' color='primary'>登録</CustomColorButton>
+                    <CustomColorButton text='登録' size='small' type='submit' variant='contained' color='primary' />
                 </div>
             </div>
         </form>
     )
 }
 
-export default PresentRegist
+export default PresentRegister

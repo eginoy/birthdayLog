@@ -3,7 +3,7 @@ import listView from '../styles/ListView.module.css'
 import _ from 'lodash'
 import Card from './Card'
 
-const ListView = (props) => {
+const ListView = (props) => {    
     let presentMock = [
         { "toUserId": 1, "BirthDay": "2020/05/27", "Name": "僕の心のヤバいやつ１～３巻", "URL": "https://example.com/", "IsShow": false, "Rank": 0, "Comment": "ヤバいです。", "Rate": 0, "InsertUid": 2, "InsertDate": "2020/5/16" },
         { "toUserId": 1, "BirthDay": "2020/05/27", "Name": "ハートそだつよ", "URL": "https://example.com/", "IsShow": false, "Rank": 0, "Comment": "いらないです。", "Rate": 0, "InsertUid": 3, "InsertDate": "2020/05/16" },
