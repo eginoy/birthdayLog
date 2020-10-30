@@ -2,20 +2,29 @@ import { useState, useEffect } from 'react'
 import header from '../styles/Header.module.css'
 import firebase from '../firebase'
 import { useUserStore } from '../store/index'
-import { Link,withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import {authUser} from '../utils'
 
 const Header = (props) => {
     const [user, setUser] = useUserStore()
     const [userName, setuserName] = useState('ゲスト');
+
     const handleClick = () => {
         firebase.auth().signOut()
             .then(() => {
                 setUser(null)
                 props.history.push('/login')
             })
-        }
-        useEffect(() => {
-            setuserName(!!user ? user : 'ゲスト')
+    }
+    useEffect(() => {
+        authUser()
+        .then((result) => {
+            setUser(result.uid)
+        })
+        .catch(()=>{
+            console.log('login failed')
+        })
+        setuserName(!!user ? user : 'ゲスト')
     })
     return (
         <div className={header.headerContainer}>

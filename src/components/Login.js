@@ -4,29 +4,28 @@ import firebase from '../firebase'
 import CustomColorButton from './CustomColorButton'
 import login from '../styles/Login.module.css'
 import { withRouter } from 'react-router-dom'
+import {authUser,isRegisterdUser,isAuthedUser} from '../utils'
 
 const Login = (props) => {
     const self = this;
     const [user, setUser] = useUserStore()
     const [isLoaded, setisLoaded] = useState(false);
 
-    function authUser(){
-        return new Promise((resolve,reject) =>{
-            firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    resolve(user);
-                }else{
-                    reject('login failed')
-                }
-            })
-        })
+    async function getbeforeAuthRoutingPath(uid){
+        var registerd = await isRegisterdUser(uid)
+        var authed = await isAuthedUser(uid)
+        if(!registerd) return '/userRegist'
+        if(!authed) return '/beforeApproval'
+        return '/'
     }
 
     useEffect(() => {
         authUser()
         .then((result)=>{
-            setUser(result.uid)
-            props.history.push('/')
+            setUser(result.uid) 
+            getbeforeAuthRoutingPath(result.uid).then((toPath)=>{
+                props.history.push(toPath)
+            })
         })
         .catch((err)=>{
             console.log(err)

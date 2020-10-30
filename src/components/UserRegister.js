@@ -7,13 +7,17 @@ import 'moment/locale/ja'
 import MomentUtils from '@date-io/moment'
 import CustomColorButton from './CustomColorButton'
 import { useForm} from 'react-hook-form'
+import {registUser} from '../api/UserAPI'
+import {useUserStore} from '../store/index'
 
 const UserRegister = () => {
     const locale = 'ja'
+    const [user] = useUserStore()
     const [birthday, setbirthday] = useState('1997/01/01');
     const { register, handleSubmit, errors} = useForm();
     const onSubmit = data => {
-        console.log(data)
+        data.Uid = user
+        registUser(data)
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
