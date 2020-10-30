@@ -30,6 +30,14 @@ export async function isAuthedUser(uid){
     return !!user && user.isAuthed
 }
 
+export async function getbeforeAuthRoutingPath(uid){
+    var registerd = await isRegisterdUser(uid)
+    var authed = await isAuthedUser(uid)
+    if(!registerd) return '/userRegist'
+    if(!authed) return '/beforeApproval'
+    return '/'
+}
+
 export function getUserData(){
     return userDataMock.map(u => {
         return {

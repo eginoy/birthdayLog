@@ -12,9 +12,10 @@ const CustomColorButton  = (props) => {
             }
         }
     }))(Button);
-
+    const buttonProps = Object.assign({},props)
+    delete buttonProps.renderInput
     return(
-        <CustomColorButton type={props.type} onClick={props.onClick}>{props.text}</CustomColorButton>
+        <CustomColorButton {...buttonProps}>{buttonProps.text}</CustomColorButton>
     )
 
 }

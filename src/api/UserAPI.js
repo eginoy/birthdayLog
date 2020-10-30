@@ -4,11 +4,11 @@ const db = firebase.firestore()
 
 export function registUser(data) {
     const user = {
-        uid: data.uid,
-        name: data.name,
-        birthday: data.birthday
+        uid: data.Uid,
+        name: data.Name,
+        birthday: data.Birthday
     }
-    db.collection('users').doc(user.uid).set(user)
+    return db.collection('users').doc(user.uid).set(user)
         .then((docRef) => {
             console.log(docRef)
         })

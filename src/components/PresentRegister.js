@@ -1,12 +1,33 @@
+import {useEffect} from 'react'
 import presentRegister from '../styles/PresentRegister.module.css'
 import {TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
 import CustomColorButton from './CustomColorButton'
 import { useForm, Controller } from 'react-hook-form'
-import { getUserData } from '../utils'
+import { authUser,getUserData,getbeforeAuthRoutingPath, isAuthedUser } from '../utils'
+import { useUserStore } from '../store'
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min'
 
-const PresentRegister = () => {
+
+const PresentRegister = (props) => {
     const userData = getUserData();
+    console.log(userData)
     const { register, handleSubmit, errors, control } = useForm();
+    const [user,setUser] = useUserStore();
+    
+    useEffect(()=>{
+        if(!user) props.history.push('/login')
+        authUser()
+        .then((result)=>{
+            setUser(result.uid) 
+            isAuthedUser(result.uid).then((isAuthed)=>{
+                if(!isAuthed) props.history.push('/beforeApproval')
+            })
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[])
+
     const onSubmit = data => {
         console.log(data)
     }
@@ -71,4 +92,4 @@ const PresentRegister = () => {
     )
 }
 
-export default PresentRegister
+export default withRouter(PresentRegister)

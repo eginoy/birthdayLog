@@ -16,6 +16,7 @@ const Header = (props) => {
                 props.history.push('/login')
             })
     }
+    
     useEffect(() => {
         authUser()
         .then((result) => {
@@ -24,8 +25,8 @@ const Header = (props) => {
         .catch(()=>{
             console.log('login failed')
         })
-        setuserName(!!user ? user : 'ゲスト')
-    })
+    },[user])
+
     return (
         <div className={header.headerContainer}>
             <div className={header.leftContainer}>

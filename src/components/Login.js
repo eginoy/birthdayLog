@@ -4,20 +4,12 @@ import firebase from '../firebase'
 import CustomColorButton from './CustomColorButton'
 import login from '../styles/Login.module.css'
 import { withRouter } from 'react-router-dom'
-import {authUser,isRegisterdUser,isAuthedUser} from '../utils'
+import {authUser,getbeforeAuthRoutingPath} from '../utils'
 
 const Login = (props) => {
     const self = this;
     const [user, setUser] = useUserStore()
     const [isLoaded, setisLoaded] = useState(false);
-
-    async function getbeforeAuthRoutingPath(uid){
-        var registerd = await isRegisterdUser(uid)
-        var authed = await isAuthedUser(uid)
-        if(!registerd) return '/userRegist'
-        if(!authed) return '/beforeApproval'
-        return '/'
-    }
 
     useEffect(() => {
         authUser()
@@ -31,7 +23,6 @@ const Login = (props) => {
             console.log(err)
             setisLoaded(true)
         })
-
     }, [])
     const handleClick = () => {
         const provider = new firebase.auth.GoogleAuthProvider()

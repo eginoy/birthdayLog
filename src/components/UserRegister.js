@@ -1,24 +1,40 @@
-import React,{useState} from 'react'
 import userRegister from '../styles/UserRegister.module.css'
+import React,{useState,useEffect} from 'react'
+import {withRouter} from 'react-router-dom'
+import { useForm} from 'react-hook-form'
 import { TextField } from '@material-ui/core'
 import {DatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers'
-import moment from 'moment'
 import 'moment/locale/ja'
 import MomentUtils from '@date-io/moment'
 import CustomColorButton from './CustomColorButton'
-import { useForm} from 'react-hook-form'
 import {registUser} from '../api/UserAPI'
 import {useUserStore} from '../store/index'
+import {authUser,getbeforeAuthRoutingPath} from '../utils'
 
-const UserRegister = () => {
+const UserRegister = (props) => {
     const locale = 'ja'
-    const [user] = useUserStore()
-    const [birthday, setbirthday] = useState('1997/01/01');
+    const [user,setUser] = useUserStore()
+    const [birthday, setbirthday] = useState('1997/06/01');
     const { register, handleSubmit, errors} = useForm();
     const onSubmit = data => {
         data.Uid = user
-        registUser(data)
+        registUser(data).then(()=>{
+            props.history.push('/')
+        })
     }
+    useEffect(()=>{
+        if(!user) return props.history.push('/')
+        authUser()
+        .then((result)=>{
+            setUser(result.uid) 
+            getbeforeAuthRoutingPath(result.uid).then((toPath)=>{
+                props.history.push(toPath)
+            })
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[])
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={userRegister.registerContainer}>
@@ -63,4 +79,4 @@ const UserRegister = () => {
     )
 }
 
-export default UserRegister
+export default withRouter(UserRegister)
