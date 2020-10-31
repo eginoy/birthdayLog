@@ -5,7 +5,7 @@
     justify-content: space-between;
 }
 
-.leftContainer > div,
+.leftContainer > .leftContainer_loginUserName,
 .rightContainer > div{
     padding:0.5em;
     margin: 0 0.5em;
@@ -18,7 +18,9 @@
 .leftContainer_siteName{
     color: #08d9d6;
     font-size: 1.3em;
-    padding-top: 0.2em !important;
+    padding:0.3em 0.5em 0.5em 0.5em;
+    cursor: pointer;
+    text-decoration: none;
 }
 .leftContainer_loginUserName{
 

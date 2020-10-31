@@ -21,6 +21,7 @@ const Header = (props) => {
         authUser()
         .then((result) => {
             setUser(result.uid)
+            setuserName(user)
         })
         .catch(()=>{
             console.log('login failed')
@@ -30,7 +31,9 @@ const Header = (props) => {
     return (
         <div className={header.headerContainer}>
             <div className={header.leftContainer}>
-                <div className={header.leftContainer_siteName}>٩(ŏ﹏ŏ｡ )۶</div>
+                <Link className={header.leftContainer_siteName} to='/'>
+                    <div>٩(ŏ﹏ŏ｡ )۶</div>
+                </Link>
                 <div className={header.leftContainer_loginUserName}>こんにちは、{userName}さん</div>
             </div>
             <div className={header.rightContainer}>
