@@ -9,6 +9,7 @@ import ErrorDialog from './ErrorDialog'
 import { UserProvider } from '../store/index'
 import { Link, Switch, Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import BeforeApproval from './BeforeApproval';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/userRegist' component={UserRegister}></Route>
           <Route path='/presentRegist' component={PresentRegister}></Route>
           <Route path='/eventList' component={ListView}></Route>
+          <Route path='/beforeApproval' component={BeforeApproval}></Route>
           <Route>
             <ErrorDialog />
           </Route>
