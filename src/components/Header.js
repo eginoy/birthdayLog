@@ -13,6 +13,7 @@ const Header = (props) => {
         firebase.auth().signOut()
             .then(() => {
                 setUser(null)
+                setuserName('ゲスト')
                 props.history.push('/login')
             })
     }

@@ -1,26 +1,28 @@
-import {useUserStore} from '../store/index'
-import React,{useEffect} from 'react'
+import { useUserStore } from '../store/index'
+import React, { useEffect, useState } from 'react'
 import listView from '../styles/ListView.module.css'
 import _ from 'lodash'
 import Card from './Card'
-import {authUser,getbeforeAuthRoutingPath} from '../utils'
+import { authUser, getbeforeAuthRoutingPath } from '../utils'
 
 
-const ListView = (props) => {  
-    const [user,setUser] = useUserStore()
-    useEffect(()=>{
-        if(!user) props.history.push('/login')
+const ListView = (props) => {
+    const [user, setUser] = useUserStore()
+    const [isLoaded, setIsLoaded] = useState(false);
+    useEffect(() => {
+        if (!user) props.history.push('/login')
         authUser()
-        .then((result)=>{
-            setUser(result.uid) 
-            getbeforeAuthRoutingPath(result.uid).then((toPath)=>{
-                props.history.push(toPath)
+            .then((result) => {
+                setUser(result.uid)
+                getbeforeAuthRoutingPath(result.uid).then((toPath) => {
+                    props.history.push(toPath)
+                    setIsLoaded(true)
+                })
             })
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    },[user])
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [user])
     let presentMock = [
         { "toUserId": 1, "BirthDay": "2020/05/27", "Name": "僕の心のヤバいやつ１～３巻", "URL": "https://example.com/", "IsShow": false, "Rank": 0, "Comment": "ヤバいです。", "Rate": 0, "InsertUid": 2, "InsertDate": "2020/5/16" },
         { "toUserId": 1, "BirthDay": "2020/05/27", "Name": "ハートそだつよ", "URL": "https://example.com/", "IsShow": false, "Rank": 0, "Comment": "いらないです。", "Rate": 0, "InsertUid": 3, "InsertDate": "2020/05/16" },
@@ -43,13 +45,13 @@ const ListView = (props) => {
     }
 
     let descSort = (data) => {
-        return data.sort((a,b) => {
-            var tmpA,tmpB
+        return data.sort((a, b) => {
+            var tmpA, tmpB
             tmpA = new Date(Object.getOwnPropertyNames(a)[0])
             tmpB = new Date(Object.getOwnPropertyNames(b)[0])
-            
-            if(tmpA > tmpB) return -1;
-            if(tmpA < tmpB) return 1;
+
+            if (tmpA > tmpB) return -1;
+            if (tmpA < tmpB) return 1;
             return 0;
         })
     }
@@ -57,13 +59,15 @@ const ListView = (props) => {
     //データの整形
     let birthDayEvents = groupByBirthDay(presentMock)
     let sortedData = descSort(birthDayEvents)
-    
+
     return (
-        <div className={listView.cardContainer}>
-            {sortedData.map(e => {
-                return <Card value={e} key={e.InsertUid} />
-            })}
-        </div>
+        isLoaded && (
+            <div className={listView.cardContainer}>
+                {sortedData.map(e => {
+                    return <Card value={e} key={e.InsertUid} />
+                })}
+            </div>
+        )
     )
 }
 

@@ -3,25 +3,25 @@ import presentRegister from '../styles/PresentRegister.module.css'
 import { TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
 import CustomColorButton from './CustomColorButton'
 import { useForm, Controller } from 'react-hook-form'
-import { authUser, getUserData, getbeforeAuthRoutingPath, isAuthedUser } from '../utils'
+import { authUser, getUserDataMaster, getbeforeAuthRoutingPath, isAuthedUser } from '../utils'
 import { useUserStore } from '../store'
-import { withRouter } from 'react-router-dom/cjs/react-router-dom.min'
-
+import { withRouter,useLocation } from 'react-router-dom'
 
 const PresentRegister = (props) => {
-    const userData = getUserData();
-    console.log(userData)
+    const [users, setUsers] = useState([]);
+    console.log(users)
     const { register, handleSubmit, errors, control } = useForm();
     const [user, setUser] = useUserStore();
     const [isLoaded, setIsLoaded] = useState(false);
+    const location = useLocation()
 
     useEffect(() => {
-        if (!user) props.history.push('/login')
         authUser()
             .then((result) => {
                 setUser(result.uid)
-                isAuthedUser(result.uid).then((isAuthed) => {
-                    if (!isAuthed) props.history.push('/beforeApproval')
+                getbeforeAuthRoutingPath(result.uid,location.pathname).then((toPath) => {
+                    props.history.push(toPath)
+                    getUserDataMaster(result.uid).then((userDataMaster) => {setUsers(userDataMaster)})
                     setIsLoaded(true)
                 })
             })
@@ -36,9 +36,12 @@ const PresentRegister = (props) => {
 
     const selectItems = (value) => {
         return (
-            <MenuItem value={value.Id} key={value.Id}>{value.Name}</MenuItem>
+            <MenuItem value={value.Uid} key={value.Uid}>{value.Name}</MenuItem>
         )
     }
+
+    //usersデータの取得処理が終わっていない場合はコンポーネントを返さない
+    if(!users[0]) return null
 
     return (
         isLoaded && (
@@ -52,12 +55,12 @@ const PresentRegister = (props) => {
                                 control={control}
                                 className='row_inputField'
                                 labelId='selectNameLabel'
-                                name='toUserId'
-                                defaultValue={'1'}
+                                name='toUid'
+                                defaultValue={users[0].Uid}
                                 ref={register()}
                                 as={
                                     <Select>
-                                        {userData.map(d => {
+                                        {users.map(d => {
                                             return selectItems(d)
                                         })}
                                     </Select>} />
@@ -92,7 +95,6 @@ const PresentRegister = (props) => {
                     </div>
                 </div>
             </form>
-            
         )                                
     )
 }

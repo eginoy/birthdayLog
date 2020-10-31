@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import firebase from './firebase'
-import {api_getUserData} from './api/UserAPI'
+import {api_getUserData,api_getUserDataMaster} from './api/UserAPI'
 
 const userDataMock = [
     {"Id":1,"Uid":"abc","Name":"トシキ","Birthday":"1997/05/27"},
@@ -30,18 +30,19 @@ export async function isAuthedUser(uid){
     return !!user && user.isAuthed
 }
 
-export async function getbeforeAuthRoutingPath(uid){
+export async function getbeforeAuthRoutingPath(uid,currentPath){
     var registerd = await isRegisterdUser(uid)
     var authed = await isAuthedUser(uid)
     if(!registerd) return '/userRegist'
     if(!authed) return '/beforeApproval'
-    return '/'
+    return !!currentPath ? currentPath :  '/'
 }
 
-export function getUserData(){
-    return userDataMock.map(u => {
+export async function getUserDataMaster(uid){
+    const userDataMaster = await api_getUserDataMaster(uid)
+    return userDataMaster.map(u => {
         return {
-            'Id': u.Id,
+            'Uid': u.Uid,
             'Name': u.Name,
             'Birthday': u.Birthday
         }

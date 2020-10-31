@@ -16,12 +16,14 @@ const UserRegister = (props) => {
     const [user,setUser] = useUserStore()
     const [birthday, setbirthday] = useState('1997/06/01');
     const { register, handleSubmit, errors} = useForm();
+
     const onSubmit = data => {
         data.Uid = user
         registUser(data).then(()=>{
             props.history.push('/')
         })
     }
+    
     useEffect(()=>{
         if(!user) return props.history.push('/')
         authUser()
@@ -35,6 +37,7 @@ const UserRegister = (props) => {
             console.log(err)
         })
     },[])
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={userRegister.registerContainer}>
