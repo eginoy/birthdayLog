@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import firebase from './firebase'
 import {api_getUserData,api_getUserDataMaster} from './api/UserAPI'
+import {api_registPresent} from './api/PresentAPI'
 
 const userDataMock = [
     {"Id":1,"Uid":"abc","Name":"トシキ","Birthday":"1997/05/27"},
@@ -53,4 +54,32 @@ export function getUserName(uid) {
     const userInfo = _.find(userDataMock, u => {return u.Id === uid});
     const userName = userInfo.Name;
     return userName;
+}
+
+async function getBirthDay(uid){
+    let userData = await api_getUserData(uid);
+    return userData.BirthDay;
+}
+
+export async function registPresent(present){
+    let postData = { 
+            "toUid": "",
+            "BirthDay": "",
+            "Name": "",
+            "URL": "",
+            "IsShow": false,
+            "Rank": 0,
+            "Comment": "",
+            "Rate": 0,
+            "InsertUid": "",
+            "InsertDate": ""
+        }
+    postData.toUid = present.toUid
+    getBirthDay(postData.toUid).then((birthday) => postData.BirthDay = birthday)
+    postData.Name = present.presentName 
+    postData.URL = present.presentURL
+    postData.InsertUid = present.insertUid  
+    postData.InsertDate = new Date()
+
+    api_registPresent(postData)
 }

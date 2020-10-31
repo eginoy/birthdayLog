@@ -3,9 +3,10 @@ import presentRegister from '../styles/PresentRegister.module.css'
 import { TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
 import CustomColorButton from './CustomColorButton'
 import { useForm, Controller } from 'react-hook-form'
-import { authUser, getUserDataMaster, getbeforeAuthRoutingPath, isAuthedUser } from '../utils'
+import { authUser, getUserDataMaster, getbeforeAuthRoutingPath, isAuthedUser, registPresent } from '../utils'
 import { useUserStore } from '../store'
 import { withRouter,useLocation } from 'react-router-dom'
+import {api_registPresent} from '../api/PresentAPI'
 
 const PresentRegister = (props) => {
     const [users, setUsers] = useState([]);
@@ -31,7 +32,14 @@ const PresentRegister = (props) => {
     }, [])
 
     const onSubmit = data => {
-        console.log(data)
+        data.insertUid = user;
+        registPresent(data)
+        .then(()=>{
+            console.log('登録に成功')
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
 
     const selectItems = (value) => {

@@ -7,7 +7,7 @@ import {DatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers'
 import 'moment/locale/ja'
 import MomentUtils from '@date-io/moment'
 import CustomColorButton from './CustomColorButton'
-import {registUser} from '../api/UserAPI'
+import {api_registUser} from '../api/UserAPI'
 import {useUserStore} from '../store/index'
 import {authUser,getbeforeAuthRoutingPath} from '../utils'
 
@@ -19,11 +19,11 @@ const UserRegister = (props) => {
 
     const onSubmit = data => {
         data.Uid = user
-        registUser(data).then(()=>{
+        api_registUser(data).then(()=>{
             props.history.push('/')
         })
     }
-    
+
     useEffect(()=>{
         if(!user) return props.history.push('/')
         authUser()

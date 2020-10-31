@@ -1,14 +1,13 @@
 import firebase from '../firebase'
-import { getUserDataMaster } from '../utils'
-const db = firebase.firestore()
+const db = firebase.firestore().collection('users')
 
-export function registUser(data) {
+export function api_registUser(data) {
     const user = {
         Uid: data.Uid,
         Name: data.Name,
         Birthday: data.Birthday
     }
-    return db.collection('users').doc(user.Uid).set(user)
+    return db.doc(user.Uid).set(user)
         .then((docRef) => {
             console.log(docRef)
         })
@@ -18,7 +17,7 @@ export function registUser(data) {
 }
 
 export function api_getUserData(uid) {
-    return db.collection('users').where('Uid', '==', uid).get()
+    return db.where('Uid', '==', uid).get()
         .then((result) => {
             let userData = []
             result.forEach((d) => {userData.push(d.data())})
@@ -30,7 +29,7 @@ export function api_getUserData(uid) {
 }
 
 export function api_getUserDataMaster(loginUid){
-    return db.collection('users').where('Uid', '!=', loginUid).get()
+    return db.where('Uid', '!=', loginUid).get()
     .then((result) => {
         let userDataMaster = []
         result.forEach((d) => {userDataMaster.push(d.data())})
