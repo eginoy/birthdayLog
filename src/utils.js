@@ -1,13 +1,19 @@
 import _ from 'lodash'
+import moment from 'moment'
 import firebase from './firebase'
 import {api_getUserData,api_getUserDataMaster} from './api/UserAPI'
-import {api_registPresent} from './api/PresentAPI'
+import {api_registPresent,api_isRegisteredPresent} from './api/PresentAPI'
 
 const userDataMock = [
     {"Id":1,"Uid":"abc","Name":"トシキ","Birthday":"1997/05/27"},
     {"Id":2,"Uid":"def","Name":"しゅうべい","Birthday":"1997/10/31"},
     {"Id":3,"Uid":"ghi","Name":"アル中","Birthday":"1997/02/09"}
 ]
+
+export function dateFormat(date){
+    let formatDate = moment(date).format('YYYY-MM-DD')
+    return formatDate
+}
 
 export function authUser(){
     return new Promise((resolve,reject) =>{
@@ -56,15 +62,21 @@ export function getUserName(uid) {
     return userName;
 }
 
-async function getBirthDay(uid){
+async function getNextBirthDay(uid){
     let userData = await api_getUserData(uid);
-    return userData.BirthDay;
+    const userBirthday = new Date(userData.Birthday)
+    let nextBirthday = new Date(new Date().getFullYear(), userBirthday.getMonth(), userBirthday.getDate()) 
+    if(nextBirthday < new Date()) {
+        const year = nextBirthday.getFullYear() + 1
+        nextBirthday = new Date(year,nextBirthday.getMonth(),nextBirthday.getDate())
+    }
+    return nextBirthday;
 }
 
 export async function registPresent(present){
     let postData = { 
-            "toUid": "",
-            "BirthDay": "",
+            "ToUid": "",
+            "Birthday": "",
             "Name": "",
             "URL": "",
             "IsShow": false,
@@ -74,12 +86,29 @@ export async function registPresent(present){
             "InsertUid": "",
             "InsertDate": ""
         }
-    postData.toUid = present.toUid
-    getBirthDay(postData.toUid).then((birthday) => postData.BirthDay = birthday)
-    postData.Name = present.presentName 
-    postData.URL = present.presentURL
-    postData.InsertUid = present.insertUid  
-    postData.InsertDate = new Date()
+    
+    return getNextBirthDay(present.toUid).then((birthday)=>{
+        postData.Birthday = dateFormat(birthday)
+        postData.ToUid = present.toUid
+        postData.Name = present.presentName 
+        postData.URL = present.presentURL
+        postData.InsertUid = present.insertUid  
+        postData.InsertDate = new Date()
+    
+        return api_registPresent(postData)
+    })
+}
 
-    api_registPresent(postData)
+export async function isRegisteredPresent(toUid,uid){
+    var beforeRegisterData = {
+        'ToUid': '',
+        'Birthday':'',
+        'InsertUid':'',
+    }
+    return getNextBirthDay(toUid).then((birthday)=>{
+        beforeRegisterData.ToUid = toUid
+        beforeRegisterData.Birthday = birthday
+        beforeRegisterData.InsertUid = uid
+        return api_isRegisteredPresent(beforeRegisterData)
+    })
 }

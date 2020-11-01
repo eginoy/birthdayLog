@@ -1,11 +1,12 @@
 import firebase from '../firebase'
+import {dateFormat} from '../utils'
 const db = firebase.firestore().collection('users')
 
 export function api_registUser(data) {
     const user = {
         Uid: data.Uid,
         Name: data.Name,
-        Birthday: data.Birthday
+        Birthday: dateFormat(data.Birthday)
     }
     return db.doc(user.Uid).set(user)
         .then((docRef) => {

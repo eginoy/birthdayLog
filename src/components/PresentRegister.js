@@ -1,20 +1,26 @@
 import { useEffect,useState } from 'react'
 import presentRegister from '../styles/PresentRegister.module.css'
-import { TextField, Select, MenuItem, InputLabel } from '@material-ui/core'
+import { TextField,Select,  MenuItem, InputLabel } from '@material-ui/core'
 import CustomColorButton from './CustomColorButton'
 import { useForm, Controller } from 'react-hook-form'
-import { authUser, getUserDataMaster, getbeforeAuthRoutingPath, isAuthedUser, registPresent } from '../utils'
+import { authUser, getUserDataMaster, getbeforeAuthRoutingPath, isRegisteredPresent, registPresent } from '../utils'
 import { useUserStore } from '../store'
 import { withRouter,useLocation } from 'react-router-dom'
-import {api_registPresent} from '../api/PresentAPI'
 
 const PresentRegister = (props) => {
-    const [users, setUsers] = useState([]);
-    console.log(users)
     const { register, handleSubmit, errors, control } = useForm();
     const [user, setUser] = useUserStore();
     const [isLoaded, setIsLoaded] = useState(false);
-    const location = useLocation()
+    const [isRegisteredToUser, setIsRegisteredToUser] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [nowSelecting, setNowSelecting] = useState('');
+    const location = useLocation() 
+
+    function checkIsRegisterdToUser(toUid,user){
+        isRegisteredPresent(toUid,user).then((isRegistered)=>{
+            setIsRegisteredToUser(isRegistered)
+        })
+    }
 
     useEffect(() => {
         authUser()
@@ -22,14 +28,25 @@ const PresentRegister = (props) => {
                 setUser(result.uid)
                 getbeforeAuthRoutingPath(result.uid,location.pathname).then((toPath) => {
                     props.history.push(toPath)
-                    getUserDataMaster(result.uid).then((userDataMaster) => {setUsers(userDataMaster)})
-                    setIsLoaded(true)
+                    getUserDataMaster(result.uid).then((userDataMaster) => {
+                        setUsers(userDataMaster)
+                        checkIsRegisterdToUser(userDataMaster[0].Uid,result.uid)
+                    })
                 })
             })
             .catch((err) => {
                 console.log(err)
+            }).finally(()=>{
+                setIsLoaded(true)
             })
     }, [])
+    
+    const handleClick = (value)=>{
+        if(value === 0) value = users[0].Uid
+        setNowSelecting(value)
+        console.log(value)
+        checkIsRegisterdToUser(value,user)
+    }
 
     const onSubmit = data => {
         data.insertUid = user;
@@ -44,11 +61,10 @@ const PresentRegister = (props) => {
 
     const selectItems = (value) => {
         return (
-            <MenuItem value={value.Uid} key={value.Uid}>{value.Name}</MenuItem>
+            <MenuItem onClick={(e)=>{handleClick(e.target.dataset.value)}} value={value.Uid} key={value.Uid}>{value.Name}</MenuItem>
         )
     }
 
-    //usersデータの取得処理が終わっていない場合はコンポーネントを返さない
     if(!users[0]) return null
 
     return (
@@ -65,9 +81,11 @@ const PresentRegister = (props) => {
                                 labelId='selectNameLabel'
                                 name='toUid'
                                 defaultValue={users[0].Uid}
+                                
                                 ref={register()}
+                                
                                 as={
-                                    <Select>
+                                        <Select id='select'>
                                         {users.map(d => {
                                             return selectItems(d)
                                         })}
@@ -99,7 +117,7 @@ const PresentRegister = (props) => {
                         </div>
                     </div>
                     <div className={presentRegister.buttonContainer}>
-                        <CustomColorButton text='登録' size='small' type='submit' variant='contained' color='primary' />
+                        <CustomColorButton text={isRegisteredToUser? '登録済み' : '登録'} disabled={isRegisteredToUser} size='small' type='submit' variant='contained' color='primary' />
                     </div>
                 </div>
             </form>
