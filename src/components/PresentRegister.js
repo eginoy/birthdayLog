@@ -44,7 +44,6 @@ const PresentRegister = (props) => {
     const handleClick = (value)=>{
         if(value === 0) value = users[0].Uid
         setNowSelecting(value)
-        console.log(value)
         checkIsRegisterdToUser(value,user)
     }
 
@@ -53,6 +52,7 @@ const PresentRegister = (props) => {
         registPresent(data)
         .then(()=>{
             console.log('登録に成功')
+            props.history.push('/')
         })
         .catch((err)=>{
             console.log(err)
