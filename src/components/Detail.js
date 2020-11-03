@@ -10,7 +10,7 @@ const Detail = (props) => {
             <div className={detail.contentContainer}>
                 <div className={detail.row}>
                     <div className={detail.item}>商品名:{present.Name}</div>
-                    <div className={detail.item}>提案者:{getUserName(present.InsertUid)}</div>
+                    <div className={detail.item}>提案者:{present.InsertUserName}</div>
                 </div>
                 <div className={detail.row}>
                     <div className={detail.item}>評価:{present.Rate}</div>

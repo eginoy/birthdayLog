@@ -29,6 +29,22 @@ export function api_getUserData(uid) {
         })
 }
 
+export function api_getUsersMaster(){
+    return db.get()
+    .then((result) => {
+        let userDataMaster = []
+        result.forEach((d) => {
+            userDataMaster.push({
+                "Name":d.data().Name,
+                "Uid":d.data().Uid
+            })
+        })
+        return userDataMaster
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
 export function api_getUserDataMaster(loginUid){
     return db.where('Uid', '!=', loginUid).get()
     .then((result) => {

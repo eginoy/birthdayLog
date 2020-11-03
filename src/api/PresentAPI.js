@@ -6,6 +6,16 @@ export function api_registPresent(present){
     return db.add(present)
 }
 
+export function api_getPresents(){
+    return db.get().then(result => {
+        let presents = []
+        result.forEach(p => {
+            presents.push(p.data())
+        })
+        return presents
+    })
+}
+
 export async function api_isRegisteredPresent(beforeRegistData){
     const doc = await db
     .where('ToUid','==',beforeRegistData.ToUid)
