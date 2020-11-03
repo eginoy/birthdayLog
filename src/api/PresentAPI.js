@@ -4,6 +4,11 @@ const db = firebase.firestore().collection('presents')
 
 export function api_registPresent(present){
     return db.add(present)
+    .then((doc)=>{
+        db.doc(doc.id).update({
+            Id:doc.id
+        })
+    })
 }
 
 export function api_getPresents(){
