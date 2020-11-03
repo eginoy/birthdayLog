@@ -32,31 +32,42 @@ const ListView = (props) => {
             .catch((err) => {
                 console.log(err)
             })
+        return ()=>{authUser()}
     }, [user])
 
     useEffect(() => {
         const unsubscribe = firebase.firestore().collection('presents').onSnapshot(snap=>{
-            const data = snap.docs.map(doc => doc.data())
-            setPresents(data)
+            let results = []
+            snap.docs.forEach(doc => {
+                if(doc.data().IsShow) results.push(doc.data())
+            })
+            setPresents(results)
         })
         return () => {unsubscribe()}
     }, []);
+
+    const Cards = (presentList,usersMaster) => {
+        if (presentList.length === 0) return <Card empty={true}></Card>
+
+        //データの整形
+        setUserName(presentList, usersMaster)
+        let birthDayEvents = groupByBirthDay(presentList)
+        let sortedData = descSort(birthDayEvents)
+
+        return sortedData.map(e => {
+            return <Card value={e} key={e.InsertUid} />
+        })
+    }
 
     if(!isLoaded){
         return <div>Now Loading</div>
     }
 
     console.log(usersMaster)
-    //データの整形
-    setUserName(presents,usersMaster)
-    let birthDayEvents = groupByBirthDay(presents)
-    let sortedData = descSort(birthDayEvents)
     
     return (
         <div className={listView.cardContainer}>
-            {sortedData.map(e => {
-                return <Card value={e} key={e.InsertUid} />
-            })}
+            {Cards(presents,usersMaster)}
         </div>
     )
 }
