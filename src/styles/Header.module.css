@@ -33,6 +33,7 @@
 .rightContainer_menuContainer > a{
     text-decoration: none;
     color:#fff;
+    margin-right:1em;
 }
 .rightContainer_menuContainer > a:hover{
     color: #08d9d6;

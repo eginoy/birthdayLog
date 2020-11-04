@@ -21,6 +21,15 @@ export function api_getPresents(){
     })
 }
 
+export function api_getPresentsForMyself(uid){
+    return db.where("ToUid","==",uid).get().then((result)=>{
+        let presents = []
+        result.forEach(p =>{presents.push(p.data())})
+        presents.forEach(p => {p.isEditable = true})
+        return presents
+    })
+}
+
 export async function api_isRegisteredPresent(beforeRegistData){
     const doc = await db
     .where('ToUid','==',beforeRegistData.ToUid)

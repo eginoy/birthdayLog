@@ -40,6 +40,9 @@ const Header = (props) => {
             <div className={header.rightContainer}>
                 {!!user &&
                     <div className={header.rightContainer_menuContainer}>
+                        <Link to='ranking'>
+                            <span>ランキング編集</span>
+                        </Link>
                         <Link to='presentRegist'>
                             <span>プレゼント登録</span>
                         </Link>

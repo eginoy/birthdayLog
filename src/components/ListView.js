@@ -13,6 +13,7 @@ const ListView = (props) => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [presents, setPresents] = useState([]);
     const [usersMaster, setUsersMaster] = useState([]);
+    
     useEffect(() => {
         if (!user) props.history.push('/login')
             authUser()

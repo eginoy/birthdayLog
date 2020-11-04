@@ -18,7 +18,7 @@ const Card = (props) => {
             </div>
             <div className={card.detailContainer}>
                 {props.value[birthday].map(d => {
-                    return <Detail value={d} key={d.Id} />
+                    return <Detail value={d} key={d.Id} isEditable={props.isEditable} />
                 })}
             </div>
         </div>
