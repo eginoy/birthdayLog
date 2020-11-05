@@ -1,8 +1,9 @@
 import React from 'react'
 import {getUserName} from '../utils'
 import detail from '../styles/Detail.module.css'
-import { TextField } from '@material-ui/core'
+import { Input,InputAdornment, TextField, withStyles } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
+import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition'
 
 const Detail = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
@@ -14,28 +15,28 @@ const Detail = (props) => {
 
     if(!!props.isEditable){
         return (
-            <div className={detail.detailContainer}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+                <form className={detail.detailContainer} onSubmit={handleSubmit(onSubmit)}>
                 <div className={detail.rank}>
-                <TextField
-                        fullWidth
+                <Input
                         className='row_inputField'
+                        endAdornment={<InputAdornment position="end">位</InputAdornment>}
                         type='text'
                         name='Rank'
                         value={present.Rank}
                         inputRef={register()}
                     />                    
-                    位</div>
+                    </div>
                 <div className={detail.contentContainer}>
                     <div className={detail.row}>
                         <div className={detail.item}>商品名:{present.Name}</div>
                         <div className={detail.item}>提案者:{present.InsertUserName}</div>
                     </div>
                     <div className={detail.row}>
-                        <div className={detail.item}>評価:
-                        <TextField
-                        fullWidth
+                        <div className={detail.item}>
+                        <Input
                         className='row_inputField'
+                        startAdornment={<InputAdornment position="start">評価:</InputAdornment>}
                         type='text'
                         name='Rate'
                         value={present.Rate}
@@ -46,7 +47,6 @@ const Detail = (props) => {
                     <div className={detail.row}>
                         <div className={detail.item}>レビュー:
                         <TextField
-                        fullWidth
                         className='row_inputField'
                         type='text'
                         name='Comment'

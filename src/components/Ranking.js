@@ -21,8 +21,7 @@ const Ranking = (props) =>{
         let sortedData = descSort(birthDayEvents)
         return(
             sortedData.map(d =>{
-                return <Card value={d} key={d.InsertUid}></Card>
-
+                return <Card value={d} key={d.InsertUid} isEditable={true}></Card>
             })
         )
 
@@ -42,9 +41,6 @@ const Ranking = (props) =>{
     }, [user]);
 
     if(!isLoaded) return <div>Now Loading...</div>
-
-    console.log(presents)
-    console.log(usersMaster)
 
     return(
         Cards()

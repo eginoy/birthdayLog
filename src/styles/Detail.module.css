@@ -15,6 +15,9 @@
 .row{
     padding:0.1em 0;
 }
+.row_inputField{
+    width:3em;
+}
 .item{
     display: inline-block;
     margin-left: 1em;
