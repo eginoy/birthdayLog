@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {getUserName} from '../utils'
 import detail from '../styles/Detail.module.css'
 import { Input,InputAdornment, TextField, withStyles } from '@material-ui/core'
@@ -13,17 +13,28 @@ const Detail = (props) => {
         console.log(data)
     }
 
+    const RankInput = withStyles(()=>({
+        root:{
+            width:'2em'
+        }
+    }))(Input)
+
+    const ReviewInput = withStyles(()=>({
+        root:{
+            width:'4em'
+        }
+    }))(Input)
+
     if(!!props.isEditable){
         return (
             <div>
                 <form className={detail.detailContainer} onSubmit={handleSubmit(onSubmit)}>
                 <div className={detail.rank}>
-                <Input
+                <RankInput
                         className='row_inputField'
                         endAdornment={<InputAdornment position="end">位</InputAdornment>}
                         type='text'
                         name='Rank'
-                        value={present.Rank}
                         inputRef={register()}
                     />                    
                     </div>
@@ -34,12 +45,11 @@ const Detail = (props) => {
                     </div>
                     <div className={detail.row}>
                         <div className={detail.item}>
-                        <Input
+                        <ReviewInput
                         className='row_inputField'
                         startAdornment={<InputAdornment position="start">評価:</InputAdornment>}
                         type='text'
                         name='Rate'
-                        value={present.Rate}
                         inputRef={register()}
                     />                    
                         </div>
@@ -50,7 +60,6 @@ const Detail = (props) => {
                         className='row_inputField'
                         type='text'
                         name='Comment'
-                        value={present.Comment}
                         inputRef={register()}
                     />  
                         </div>
