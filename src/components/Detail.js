@@ -9,14 +9,15 @@ import { api_releasePresent, api_updatePresent } from '../api/PresentAPI'
 
 const Detail = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
-    let present = props.value
+    const [present, setPresent] = useState(props.value);
     
     const onSubmit = data =>{
         console.log(data)
         // memo:onsubmit後に入力前の値が入るので書き換えてる
-        present.Rank = data.Rank
-        present.Rate = data.Rate
-        present.Comment = data.Comment
+        present.Rank = data.Rank;
+        present.Rate = data.Rate;
+        present.Comment = data.Comment;
+
         api_updatePresent(data)
     }
 
@@ -68,8 +69,8 @@ const Detail = (props) => {
                     </div>
                 <div className={contentContainer}>
                     <div className={detail.row}>
-                        <div className={detail.item}>商品名:{present.Name}</div>
-                        <div className={detail.item}>提案者:{present.InsertUserName}</div>
+                        <div className={detail.item}>商品名: {present.Name}</div>
+                        <div className={detail.item}>提案者: {present.InsertUserName}</div>
                     </div>
                     <div className={detail.row}>
                         <div className={detail.item}>
@@ -100,7 +101,7 @@ const Detail = (props) => {
                 </div>
                 <div className={detail.buttonContainer}>
                     <CustomColorButton text="登録" type="submit" size='small' variant='contained' color='primary'></CustomColorButton>
-                    <CustomColorButton text={present.IsShow ? "公開済み" : "公開する"} onClick={handleClick} size='small' variant='contained' color='primary'></CustomColorButton>
+                    <CustomColorButton text={present.IsShow ? "公開済み" : "公開する"} disabled={present.IsShow} onClick={handleClick} size='small' variant='contained' color='primary'></CustomColorButton>
                 </div>
                 <input ref={register()} name="Id" defaultValue={present.Id} hidden={true}/>
                 </form>
@@ -112,14 +113,14 @@ const Detail = (props) => {
                 <div className={detail.rank}>{present.Rank}位</div>
                 <div className={detail.contentContainer}>
                     <div className={detail.row}>
-                        <div className={detail.item}>商品名:{present.Name}</div>
-                        <div className={detail.item}>提案者:{present.InsertUserName}</div>
+                        <div className={detail.item}>商品名: {present.Name}</div>
+                        <div className={detail.item}>提案者: {present.InsertUserName}</div>
                     </div>
                     <div className={detail.row}>
-                        <div className={detail.item}>評価:{present.Rate}</div>
+                        <div className={detail.item}>評価: {present.Rate}</div>
                     </div>
                     <div className={detail.row}>
-                        <div className={detail.item}>レビュー:{present.Comment}</div>
+                        <div className={detail.item}>レビュー: {present.Comment}</div>
                     </div>
                 </div>
             </div>
