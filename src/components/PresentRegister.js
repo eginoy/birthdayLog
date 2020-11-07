@@ -6,6 +6,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { authUser, getUserDataMaster, getbeforeAuthRoutingPath, isRegisteredPresent, registPresent } from '../utils'
 import { useUserStore } from '../store'
 import { withRouter,useLocation } from 'react-router-dom'
+import BeforeApproval from './BeforeApproval'
 
 const PresentRegister = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
@@ -30,6 +31,7 @@ const PresentRegister = (props) => {
                     props.history.push(toPath)
                     getUserDataMaster(result.uid).then((userDataMaster) => {
                         setUsers(userDataMaster)
+                        if(userDataMaster.length === 0) return props.history.push('/')
                         checkIsRegisterdToUser(userDataMaster[0].Uid,result.uid)
                     })
                 })
