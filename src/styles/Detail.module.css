@@ -7,10 +7,28 @@
     background-color:#fff;
     color: #333;
 }
+.detailContainer_editable{
+    justify-content: space-between;
+}
 .rank{
     margin:auto 1em;
+    flex-grow: 1;
 }
 .contentContainer{
+    flex-grow: 3;
+}
+.contentContainer_editable{
+    margin: 0.5em  0em 0.5em 0;
+}
+.commentContainer{
+    flex-grow: 3;
+}
+.commentContainer > div{
+    width:100%;
+}
+.commentContainer_editable{
+    margin-right:1em;
+    padding:0.5em;
 }
 .row{
     padding:0.1em 0;
@@ -21,4 +39,13 @@
 .item{
     display: inline-block;
     margin-left: 1em;
+}
+.buttonContainer{
+    background-color: #252a34;
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0.5em;
+    margin-right:0.3em;
 }
