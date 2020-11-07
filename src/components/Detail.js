@@ -39,6 +39,14 @@ const Detail = (props) => {
         [detail.commentContainer_editable]:props.isEditable
     })
     
+    const item = ClassNames(detail.item,{
+        [detail.view]: !props.isEditable
+    })
+
+    const commentLabel = ClassNames(detail.commentLabel,{
+        [detail.view]: !props.isEditable
+    })
+
     const RankInput = withStyles(()=>({
         root:{
             width:'2.2em'
@@ -70,7 +78,7 @@ const Detail = (props) => {
                     </div>
                 <div className={contentContainer}>
                     <div className={detail.row}>
-                        <div className={detail.item}>商品名: {present.Name}</div>
+                        <div className={detail.item}>商品名: <a className={detail.itemName} href={present.URL} target="_blank">{present.Name}</a></div>
                         <div className={detail.item}>提案者: {present.InsertUserName}</div>
                     </div>
                     <div className={detail.row}>
@@ -113,17 +121,17 @@ const Detail = (props) => {
                 <div className={detail.rank}>{present.Rank}位</div>
                 <div className={detail.contentContainer}>
                     <div className={detail.row}>
-                        <div className={detail.item}>商品名: {present.Name}</div>
-                        <div className={detail.item}>提案者: {present.InsertUserName}</div>
+                        <div className={item}>商品名:  <a href={present.URL} target="_blank">{present.Name}</a></div>
+                        <div className={item}>提案者: {present.InsertUserName}</div>
                     </div>
                     <div className={detail.row}>
-                        <div className={detail.item}>評価: {present.Rate}</div>
+                        <div className={item}>評価: {present.Rate}</div>
                     </div>
                 </div>
                 <div className={detail.commentContainer}>
                 <div className={detail.row}>
-                        <div className={detail.commentLabel}>レビュー:</div>
-                        <div className={detail.item}><span className={detail.comment}>{present.Comment}</span></div>
+                        <div className={commentLabel}>レビュー:</div>
+                        <div className={item}><span className={detail.comment}>{present.Comment}</span></div>
                     </div>
                 </div>
             </div>

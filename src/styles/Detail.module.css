@@ -25,6 +25,10 @@
 .contentContainer_editable > .row:not(:nth-child(1)){
     margin-top:0.5em;
 }
+.itemName{
+    color:hsl(179, 93%, 25%);
+    text-decoration: none;
+}
 .commentContainer{
     flex-grow: 4;
     margin:auto 0
@@ -51,9 +55,19 @@
 .row_inputField{
     width:3em;
 }
+.view{
+    padding:0.4em;
+    background: #252a34;
+    color:#fff;
+    border-radius: 0.3em;
+}
 .item{
     display: inline-block;
     margin-left: 1em;
+}
+.item> a:not(.itemName){
+    color: #08d9d6;
+    text-decoration: none;
 }
 .commentLabel{
     vertical-align: text-top;
