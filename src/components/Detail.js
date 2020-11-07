@@ -78,7 +78,7 @@ const Detail = (props) => {
                     </div>
                 <div className={contentContainer}>
                     <div className={detail.row}>
-                        <div className={detail.item}>商品名: <a className={detail.itemName} href={present.URL} target="_blank">{present.Name}</a></div>
+                        <div className={detail.item}>商品名: <a className={detail.itemName_editable} href={present.URL} target="_blank">{present.Name}</a></div>
                         <div className={detail.item}>提案者: {present.InsertUserName}</div>
                     </div>
                     <div className={detail.row}>

@@ -25,7 +25,7 @@
 .contentContainer_editable > .row:not(:nth-child(1)){
     margin-top:0.5em;
 }
-.itemName{
+.itemName_editable{
     color:hsl(179, 93%, 25%);
     text-decoration: none;
 }
@@ -65,7 +65,7 @@
     display: inline-block;
     margin-left: 1em;
 }
-.item> a:not(.itemName){
+.item> a:not(.itemName_editable){
     color: #08d9d6;
     text-decoration: none;
 }
@@ -82,6 +82,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 0.5em;
-    margin-right:0.3em;
+    padding: 0.3em;
+    margin:0.5em;
+}
+.buttonContainer > button{
+    margin:0.4em;
 }
