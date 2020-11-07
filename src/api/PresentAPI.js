@@ -1,6 +1,7 @@
 import firebase from '../firebase'
 import { dateFormat } from '../utils'
-const db = firebase.firestore().collection('presents')
+const db_ref = process.env.REACT_APP_DB_REF_PRESENTS
+const db = firebase.firestore().collection(db_ref)
 
 export function api_registPresent(present){
     return db.add(present)

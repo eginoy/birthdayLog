@@ -1,6 +1,7 @@
 import firebase from '../firebase'
 import {dateFormat} from '../utils'
-const db = firebase.firestore().collection('users')
+const db_ref = process.env.REACT_APP_DB_REF_USERS
+const db = firebase.firestore().collection(db_ref)
 
 export function api_registUser(data) {
     const user = {
