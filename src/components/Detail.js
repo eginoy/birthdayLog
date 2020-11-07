@@ -5,6 +5,7 @@ import { Input,InputAdornment, TextField, withStyles } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
 import ClassNames from 'classnames'
 import CustomColorButton from './CustomColorButton'
+import { api_updatePresent } from '../api/PresentAPI'
 
 const Detail = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
@@ -12,6 +13,7 @@ const Detail = (props) => {
 
     const onSubmit = data =>{
         console.log(data)
+        api_updatePresent(data)
     }
 
     const detailContainer = ClassNames(detail.detailContainer,{
@@ -28,7 +30,10 @@ const Detail = (props) => {
 
     const RankInput = withStyles(()=>({
         root:{
-            width:'2em'
+            width:'2.2em'
+        },
+        input:{
+            textAlign:'end'
         }
     }))(Input)
 
@@ -48,6 +53,7 @@ const Detail = (props) => {
                         endAdornment={<InputAdornment position="end">位</InputAdornment>}
                         type='text'
                         name='Rank'
+                        defaultValue={present.Rank}
                         inputRef={register()}
                     />                    
                     </div>
@@ -63,6 +69,7 @@ const Detail = (props) => {
                         startAdornment={<InputAdornment position="start">評価:</InputAdornment>}
                         type='text'
                         name='Rate'
+                        defaultValue={present.Rate}
                         inputRef={register()}
                     />                    
                         </div>
@@ -76,14 +83,17 @@ const Detail = (props) => {
                             label="レビュー:"
                             variant="outlined"
                             rows={2}
+                            rowsMax={4}
+                            defaultValue={present.Comment}
                             name='Comment'
                             inputRef={register()}
                         /> 
                 </div>
                 <div className={detail.buttonContainer}>
-                    <CustomColorButton text="登録" size='small' variant='contained' color='primary'></CustomColorButton>
+                    <CustomColorButton text="登録" type="submit" size='small' variant='contained' color='primary'></CustomColorButton>
                     <CustomColorButton text="公開" size='small' variant='contained' color='primary'></CustomColorButton>
                 </div>
+                <input ref={register()} name="Id" defaultValue={present.Id} hidden={true}/>
                 </form>
             </div>
         )

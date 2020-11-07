@@ -11,8 +11,16 @@ export function api_registPresent(present){
     })
 }
 
+export function api_updatePresent(present){
+    return db.doc(present.Id).update({
+        Rank:present.Rank,
+        Rate:present.Rate,
+        Comment:present.Comment
+    })
+}
+
 export function api_getPresents(){
-    return db.where('IsShow','==','true').get().then(result => {
+    return db.where('IsShow','==',true).get().then(result => {
         let presents = []
         result.forEach(p => {
             presents.push(p.data())

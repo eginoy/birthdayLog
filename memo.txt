@@ -1,6 +1,9 @@
 how to build app
 https://ja.reactjs.org/docs/thinking-in-react.html
 
+star rating component
+https://www.npmjs.com/package/react-star-rating-component
+
 basecolor
 https://colorhunt.co/palette/17117
 
