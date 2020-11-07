@@ -5,7 +5,7 @@ import _ from 'lodash'
 import Card from './Card'
 import { authUser, getbeforeAuthRoutingPath, descSort,setUserName,groupByBirthDay } from '../utils'
 import { api_getUsersMaster } from '../api/UserAPI'
-import { api_getPresents } from '../api/PresentAPI'
+import { api_getPresents,presenstDB } from '../api/PresentAPI'
 import firebase from '../firebase'
 
 const ListView = (props) => {
@@ -37,7 +37,7 @@ const ListView = (props) => {
     }, [user])
 
     useEffect(() => {
-        const unsubscribe = firebase.firestore().collection('presents').onSnapshot(snap=>{
+        const unsubscribe = presenstDB.onSnapshot(snap=>{
             let results = []
             snap.docs.forEach(doc => {
                 if(doc.data().IsShow) results.push(doc.data())

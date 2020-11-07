@@ -1,7 +1,7 @@
 import firebase from '../firebase'
 import {dateFormat} from '../utils'
 const db_ref = process.env.REACT_APP_DB_REF_USERS
-const db = firebase.firestore().collection(db_ref)
+const usersDB = firebase.firestore().collection(db_ref)
 
 export function api_registUser(data) {
     const user = {
@@ -9,7 +9,7 @@ export function api_registUser(data) {
         Name: data.Name,
         Birthday: dateFormat(data.Birthday)
     }
-    return db.doc(user.Uid).set(user)
+    return usersDB.doc(user.Uid).set(user)
         .then((docRef) => {
             console.log(docRef)
         })
@@ -19,7 +19,7 @@ export function api_registUser(data) {
 }
 
 export function api_getUserName(uid){
-    return db.where('Uid','==',uid).get()
+    return usersDB.where('Uid','==',uid).get()
     .then((result)=>{
         let userName ="";
         result.forEach(u=>{
@@ -33,7 +33,7 @@ export function api_getUserName(uid){
 }
 
 export function api_getUserData(uid) {
-    return db.where('Uid', '==', uid).get()
+    return usersDB.where('Uid', '==', uid).get()
         .then((result) => {
             let userData = []
             result.forEach((d) => {userData.push(d.data())})
@@ -45,7 +45,7 @@ export function api_getUserData(uid) {
 }
 
 export function api_getUsersMaster(){
-    return db.get()
+    return usersDB.get()
     .then((result) => {
         let userDataMaster = []
         result.forEach((d) => {
@@ -61,7 +61,7 @@ export function api_getUsersMaster(){
 }
 
 export function api_getUserDataMaster(loginUid){
-    return db.where('Uid', '!=', loginUid).get()
+    return usersDB.where('Uid', '!=', loginUid).get()
     .then((result) => {
         let userDataMaster = []
         result.forEach((d) => {userDataMaster.push(d.data())})
