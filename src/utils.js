@@ -1,14 +1,8 @@
 import _ from 'lodash'
 import moment from 'moment'
 import firebase from './firebase'
-import { api_getUserData, api_getUserDataMaster } from './api/UserAPI'
+import { api_getUserData, api_getUserDataMaster, api_getUserName } from './api/UserAPI'
 import { api_registPresent, api_isRegisteredPresent } from './api/PresentAPI'
-
-const userDataMock = [
-    { "Id": 1, "Uid": "abc", "Name": "トシキ", "Birthday": "1997/05/27" },
-    { "Id": 2, "Uid": "def", "Name": "しゅうべい", "Birthday": "1997/10/31" },
-    { "Id": 3, "Uid": "ghi", "Name": "アル中", "Birthday": "1997/02/09" }
-]
 
 export function dateFormat(date) {
     let formatDate = moment(date).format('YYYY-MM-DD')
@@ -57,9 +51,9 @@ export async function getUserDataMaster(uid) {
 }
 
 export function getUserName(uid) {
-    const userInfo = _.find(userDataMock, u => { return u.Id === uid });
-    const userName = userInfo.Name;
-    return userName;
+    return api_getUserName(uid).then(userName=>{
+        return userName
+    })
 }
 
 async function getNextBirthDay(uid) {

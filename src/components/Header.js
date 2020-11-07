@@ -3,17 +3,18 @@ import header from '../styles/Header.module.css'
 import firebase from '../firebase'
 import { useUserStore } from '../store/index'
 import { Link, withRouter } from 'react-router-dom'
-import {authUser} from '../utils'
+import {authUser,getUserName} from '../utils'
+import { api_getUserName } from '../api/UserAPI'
 
 const Header = (props) => {
     const [user, setUser] = useUserStore()
-    const [userName, setuserName] = useState('ゲスト');
+    const [userName, setUserName] = useState('ゲスト');
 
     const handleClick = () => {
         firebase.auth().signOut()
             .then(() => {
                 setUser(null)
-                setuserName('ゲスト')
+                setUserName('ゲスト')
                 props.history.push('/login')
             })
     }
@@ -22,7 +23,9 @@ const Header = (props) => {
         authUser()
         .then((result) => {
             setUser(result.uid)
-            setuserName(user)
+            getUserName(result.uid).then(userName=>{
+                setUserName(userName === '' ? 'ゲスト' : userName)
+            })
         })
         .catch(()=>{
             console.log('login failed')

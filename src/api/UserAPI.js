@@ -17,6 +17,20 @@ export function api_registUser(data) {
         })
 }
 
+export function api_getUserName(uid){
+    return db.where('Uid','==',uid).get()
+    .then((result)=>{
+        let userName ="";
+        result.forEach(u=>{
+            userName = u.data().Name
+        })
+        return userName
+    })
+    .catch(()=>{
+        return "ユーザーネームの取得に失敗"
+    })
+}
+
 export function api_getUserData(uid) {
     return db.where('Uid', '==', uid).get()
         .then((result) => {
