@@ -1,33 +1,42 @@
 import React,{useState} from 'react'
-import {getUserName} from '../utils'
+import _ from 'lodash'
 import detail from '../styles/Detail.module.css'
 import { Input,InputAdornment, TextField, withStyles } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
 import ClassNames from 'classnames'
 import CustomColorButton from './CustomColorButton'
-import { api_updatePresent } from '../api/PresentAPI'
+import { api_releasePresent, api_updatePresent } from '../api/PresentAPI'
 
 const Detail = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
     let present = props.value
-
+    
     const onSubmit = data =>{
         console.log(data)
+        // memo:onsubmit後に入力前の値が入るので書き換えてる
+        present.Rank = data.Rank
+        present.Rate = data.Rate
+        present.Comment = data.Comment
         api_updatePresent(data)
     }
 
+    const handleClick = () => {
+        present.isShow = true
+        api_releasePresent(present.Id)
+    }
+    
     const detailContainer = ClassNames(detail.detailContainer,{
         [detail.detailContainer_editable]:props.isEditable
     })
-
+    
     const contentContainer = ClassNames(detail.contentContainer,{
         [detail.contentContainer_editable]:props.isEditable
     })
-
+    
     const commentContainer = ClassNames(detail.commentContainer,{
         [detail.commentContainer_editable]:props.isEditable
     })
-
+    
     const RankInput = withStyles(()=>({
         root:{
             width:'2.2em'
@@ -36,13 +45,13 @@ const Detail = (props) => {
             textAlign:'end'
         }
     }))(Input)
-
+    
     const ReviewInput = withStyles(()=>({
         root:{
             width:'4em'
         }
     }))(Input)
-
+    
     if(!!props.isEditable){
         return (
             <div>
@@ -91,7 +100,7 @@ const Detail = (props) => {
                 </div>
                 <div className={detail.buttonContainer}>
                     <CustomColorButton text="登録" type="submit" size='small' variant='contained' color='primary'></CustomColorButton>
-                    <CustomColorButton text="公開" size='small' variant='contained' color='primary'></CustomColorButton>
+                    <CustomColorButton text={present.IsShow ? "公開済み" : "公開する"} onClick={handleClick} size='small' variant='contained' color='primary'></CustomColorButton>
                 </div>
                 <input ref={register()} name="Id" defaultValue={present.Id} hidden={true}/>
                 </form>

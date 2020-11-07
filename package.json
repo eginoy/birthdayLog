@@ -13,7 +13,6 @@
     "classnames": "^2.2.6",
     "firebase": "^8.0.0",
     "firebase-cli": "^1.2.0",
-    "loadash": "^1.0.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "react": "^17.0.1",

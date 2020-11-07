@@ -19,6 +19,12 @@ export function api_updatePresent(present){
     })
 }
 
+export function api_releasePresent(id){
+    return db.doc(id).update({
+        IsShow:true
+    })
+}
+
 export function api_getPresents(){
     return db.where('IsShow','==',true).get().then(result => {
         let presents = []
