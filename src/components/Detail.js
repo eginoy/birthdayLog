@@ -11,7 +11,8 @@ const Detail = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
     // const [present, setPresent] = useState(props.value);
     let present = props.value
-    
+    const [isShow, setIsShow] = useState(present.IsShow);
+
     const onSubmit = data =>{
         console.log(data)
         // memo:onsubmit後に入力前の値が入るので書き換えてる
@@ -23,7 +24,7 @@ const Detail = (props) => {
     }
 
     const handleClick = () => {
-        present.IsShow = true
+        setIsShow(true)
         api_releasePresent(present.Id)
     }
     
@@ -109,7 +110,7 @@ const Detail = (props) => {
                 </div>
                 <div className={detail.buttonContainer}>
                     <CustomColorButton text="登録" type="submit" size='small' variant='contained' color='primary'></CustomColorButton>
-                    <CustomColorButton text={present.IsShow ? "公開済み" : "公開する"} disabled={present.IsShow} onClick={handleClick} size='small' variant='contained' color='primary'></CustomColorButton>
+                    <CustomColorButton text={isShow ? "公開済み" : "公開する"} disabled={isShow} onClick={handleClick} size='small' variant='contained' color='primary'></CustomColorButton>
                 </div>
                 <input ref={register()} name="Id" defaultValue={present.Id} hidden={true}/>
                 </form>
