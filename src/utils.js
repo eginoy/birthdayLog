@@ -34,7 +34,7 @@ export async function isRegisterdUser(uid) {
 
 export async function isAuthedUser(uid) {
     let user = await api_getUserData(uid)
-    return !!user && user.isAuthed
+    return !!user && user.IsAuthed
 }
 
 export async function getbeforeAuthRoutingPath(uid, currentPath) {

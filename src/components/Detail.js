@@ -9,7 +9,8 @@ import { api_releasePresent, api_updatePresent } from '../api/PresentAPI'
 
 const Detail = (props) => {
     const { register, handleSubmit, errors, control } = useForm();
-    const [present, setPresent] = useState(props.value);
+    // const [present, setPresent] = useState(props.value);
+    let present = props.value
     
     const onSubmit = data =>{
         console.log(data)
@@ -22,7 +23,7 @@ const Detail = (props) => {
     }
 
     const handleClick = () => {
-        present.isShow = true
+        present.IsShow = true
         api_releasePresent(present.Id)
     }
     
@@ -92,8 +93,7 @@ const Detail = (props) => {
                             multiline
                             label="レビュー:"
                             variant="outlined"
-                            rows={2}
-                            rowsMax={4}
+                            rowsMax={3}
                             defaultValue={present.Comment}
                             name='Comment'
                             inputRef={register()}
@@ -119,8 +119,11 @@ const Detail = (props) => {
                     <div className={detail.row}>
                         <div className={detail.item}>評価: {present.Rate}</div>
                     </div>
-                    <div className={detail.row}>
-                        <div className={detail.item}>レビュー: {present.Comment}</div>
+                </div>
+                <div className={detail.commentContainer}>
+                <div className={detail.row}>
+                        <div className={detail.commentLabel}>レビュー:</div>
+                        <div className={detail.item}><span className={detail.comment}>{present.Comment}</span></div>
                     </div>
                 </div>
             </div>
