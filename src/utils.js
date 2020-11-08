@@ -125,7 +125,6 @@ export function groupByBirthDay(data) {
             if (r[d.Birthday]) r[d.Birthday].push(d);
         })
     })
-    console.log(result);
     return result;
 }
 

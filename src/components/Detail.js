@@ -14,7 +14,6 @@ const Detail = (props) => {
     const [isShow, setIsShow] = useState(present.IsShow);
 
     const onSubmit = data =>{
-        console.log(data)
         // memo:onsubmit後に入力前の値が入るので書き換えてる
         present.Rank = data.Rank;
         present.Rate = data.Rate;

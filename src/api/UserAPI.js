@@ -11,7 +11,6 @@ export function api_registUser(data) {
     }
     return usersDB.doc(user.Uid).set(user)
         .then((docRef) => {
-            console.log(docRef)
         })
         .catch((err) => {
             console.log(err)

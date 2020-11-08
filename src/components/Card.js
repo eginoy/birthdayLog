@@ -9,8 +9,6 @@ const Card = (props) => {
     const birthday = Object.getOwnPropertyNames(props.value)[0]
     const birthDayUserName = props.value[birthday][0].ToUserName
     props.value[birthday] = _.sortBy(props.value[birthday],p=>{return p.Rank})
-    console.log(props.value[birthday])
-    
 
     return (
         <div className={card.cardContainer}>

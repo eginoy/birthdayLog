@@ -64,8 +64,6 @@ const ListView = (props) => {
         return <div>Now Loading</div>
     }
 
-    console.log(usersMaster)
-    
     return (
         <div className={listView.cardContainer}>
             {Cards(presents,usersMaster)}
