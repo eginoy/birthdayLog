@@ -41,6 +41,7 @@ export async function getbeforeAuthRoutingPath(uid, currentPath) {
 
 export async function getUserDataMaster(uid) {
     const userDataMaster = await api_getUserDataMaster(uid)
+    if(!userDataMaster) return []
     return userDataMaster.map(u => {
         return {
             'Uid': u.Uid,

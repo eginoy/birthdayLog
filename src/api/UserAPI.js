@@ -28,7 +28,7 @@ export function api_getUserName(uid){
         return userName
     })
     .catch(()=>{
-        return "ユーザーネームの取得に失敗"
+        return "ゲスト"
     })
 }
 
