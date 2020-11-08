@@ -53,7 +53,7 @@ const PresentRegister = (props) => {
         data.insertUid = user;
         registPresent(data)
         .then(()=>{
-            console.log('登録に成功')
+            alert('登録に成功')
             props.history.push('/')
         })
         .catch((err)=>{

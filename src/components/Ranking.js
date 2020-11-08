@@ -49,7 +49,6 @@ const Ranking = (props) =>{
                 return <Card value={d} key={d.InsertUid} isEditable={true}></Card>
             })
         )
-
     }
 
     if(!isLoaded) return <div>Now Loading...</div>

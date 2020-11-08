@@ -20,7 +20,9 @@ const Detail = (props) => {
         present.Rate = data.Rate;
         present.Comment = data.Comment;
 
-        api_updatePresent(data)
+        api_updatePresent(data).then(()=>{
+            alert('登録に成功')
+        })
     }
 
     const handleClick = () => {
