@@ -8,7 +8,7 @@ const Card = (props) => {
     if(!!props.empty) return <BeforeApproval message='登録データが存在しないか、公開されていません'></BeforeApproval>
     const birthday = Object.getOwnPropertyNames(props.value)[0]
     const birthDayUserName = props.value[birthday][0].ToUserName
-    props.value[birthday] = _.sortBy(props.value[birthday],p=>{return p.Rank})
+    props.value[birthday] = _.sortBy(props.value[birthday],p=>{return parseInt(p.Rank)})
 
     return (
         <div className={card.cardContainer}>
