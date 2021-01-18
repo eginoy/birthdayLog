@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
+    "dotenv": "^8.2.0",
     "firebase": "^8.0.0",
     "firebase-cli": "^1.2.0",
     "lodash": "^4.17.20",
